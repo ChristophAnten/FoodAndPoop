@@ -77,6 +77,7 @@ server <- function(input, output,session) {
     react$foods = foods
   
   # ################################################################################## shit Box ####
+  # ---------------------------------------- observeEvent input$shit_heute ----
   observeEvent(input$shit_heute,{
     updateTimeInput(session,
                     "shit_time",
@@ -85,7 +86,7 @@ server <- function(input, output,session) {
                     "shit_date",
                     value=Sys.Date())
   })
-  
+  # ---------------------------------------- observeEvent input$shit_templates ----
   observeEvent(input$shit_templates,{
     if (input$shit_templates != shit_template_names_default){
       updateSliderTextInput(session,
@@ -112,6 +113,7 @@ server <- function(input, output,session) {
     }
   })
   
+  # ---------------------------------------- observeEvent input$shit_save ----
   observeEvent(input$shit_save,{           
     if(input$shit_templateName != ""){
       print("added_template")
@@ -150,7 +152,7 @@ server <- function(input, output,session) {
   })
   
   # ################################################################################## food Box ####
-  # --------------------------------------------------------- observeEvent input$food_templates ----
+  # ---------------------------------------- observeEvent input$food_templates ----
   old_food_selected = c()
   old_food_choices = sort(food_default)  
   idx <- length(old_food_choices)
@@ -189,7 +191,7 @@ server <- function(input, output,session) {
     old_food_selected <<- input$food_templates
     old_food_choices <<- choices
   }, ignoreNULL = FALSE)
-  # ---------------------------------------------------------------- observeEvent input$food_add ----
+  # ---------------------------------------- observeEvent input$food_add ----
   observeEvent(input$food_add,{
     showModal(
       modalDialog(
@@ -209,7 +211,7 @@ server <- function(input, output,session) {
       )
     )
   })
-  # --------------------------------------------------------------- observeEvent input$save_food ----
+  # ---------------------------------------- observeEvent input$save_food ----
   observeEvent(input$save_food,{
     food_default <<- LETTERS[1:4]
     old_food_selected <<- c()
@@ -222,7 +224,7 @@ server <- function(input, output,session) {
     removeModal()
   })
   # ################################################################################## table Box ####
-  
+  # ---------------------------------------- renderDataTable output$shitlist_items ----
   output$shitlist_items <- DT::renderDataTable({
     req(length(react$shitlist)>0)
     out <- map_dfr(react$shitlist, ~as_data_frame(t(.)))
@@ -244,7 +246,7 @@ server <- function(input, output,session) {
       
     out
   })
-  
+  # ---------------------------------------- observeEvent input$shitlist_items_cell_clicked ----
   observeEvent(input$shitlist_items_cell_clicked,{
     print(input$shitlist_items_rows_selected)
     if(is.null(input$shitlist_items_rows_selected)){
@@ -260,7 +262,7 @@ server <- function(input, output,session) {
       shinyjs::enable("shitlist_remove")
     }
   })
-  
+  # ---------------------------------------- observeEvent input$shitlist_remove ----
   observeEvent(input$shitlist_remove, {
     print(input$shitlist_items_rows_selected)
     showModal(
@@ -273,13 +275,16 @@ server <- function(input, output,session) {
       )
     )    
   })
+  # ---------------------------------------- observeEvent input$shitlist_confirm_remove ----
   observeEvent(input$shitlist_confirm_remove,{
     react$shitlist[input$shitlist_items_rows_selected] <- NULL
     removeModal()
   })
+  # ---------------------------------------- observeEvent input$shitlist_edit ----
   observeEvent(input$shitlist_edit, {
-    #open shitlist item
+    # open shitlist item
     # and edit!!
+    # update save_button
   })
   
   # ################################################################################## control Box ####
