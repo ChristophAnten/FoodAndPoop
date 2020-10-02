@@ -87,29 +87,34 @@ server <- function(input, output,session) {
                     value=Sys.Date())
   })
   # ---------------------------------------- observeEvent input$shit_templates ----
+  
+  updateShitInput <- function(ShitListEntry){
+    updateSliderTextInput(session,
+                          inputId = "shit_thickness",
+                          selected = ShitListEntry$density)
+    updateSliderTextInput(session,
+                          inputId = "shit_debree",
+                          selected = ShitListEntry$pieces)
+    colourpicker::updateColourInput(session,
+                                    inputId = "shit_colour",
+                                    value = ShitListEntry$colour)
+    updateRadioButtons(session,
+                       inputId = "radio_fart",
+                       select = as.numeric( ShitListEntry$fart))
+    updateRadioButtons(session,
+                       inputId = "radio_heartburn",
+                       select = as.numeric( ShitListEntry$heartburn))
+    updateRadioButtons(session,
+                       inputId = "radio_bloat",
+                       select = as.numeric( ShitListEntry$bloat))
+    updateRadioButtons(session,
+                       inputId = "radio_pain",
+                       select = as.numeric( ShitListEntry$pain))
+  }
+  
   observeEvent(input$shit_templates,{
     if (input$shit_templates != shit_template_names_default){
-      updateSliderTextInput(session,
-                        inputId = "shit_thickness",
-                        selected = react$templates[[input$shit_templates]]$density)
-      updateSliderTextInput(session,
-                        inputId = "shit_debree",
-                        selected = react$templates[[input$shit_templates]]$pieces)
-      colourpicker::updateColourInput(session,
-                        inputId = "shit_colour",
-                        value = react$templates[[input$shit_templates]]$colour)
-      updateRadioButtons(session,
-                         inputId = "radio_fart",
-                         select = as.numeric( react$templates[[input$shit_templates]]$fart))
-      updateRadioButtons(session,
-                         inputId = "radio_heartburn",
-                         select = as.numeric( react$templates[[input$shit_templates]]$heartburn))
-      updateRadioButtons(session,
-                         inputId = "radio_bloat",
-                         select = as.numeric( react$templates[[input$shit_templates]]$bloat))
-      updateRadioButtons(session,
-                         inputId = "radio_pain",
-                         select = as.numeric( react$templates[[input$shit_templates]]$pain))
+      updateShitInput(react$templates[[input$shit_templates]])
     }
   })
   
@@ -285,6 +290,11 @@ server <- function(input, output,session) {
     # open shitlist item
     # and edit!!
     # update save_button
+    print("editButtonClicked")
+    updateActionButton(session,
+                       inputId = "shit_save",
+                       label = "Overide selected")
+    updateShitInput(react$shitlist[[input$shitlist_items_rows_selected]])
   })
   
   # ################################################################################## control Box ####

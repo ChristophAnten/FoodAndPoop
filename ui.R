@@ -5,19 +5,20 @@ ui <- dashboardPage(
   dashboardHeader(title = "Poop"),
   
   # ######################################################################### dashboardSidebar ####
-  dashboardSidebar(collapsed = TRUE,
-                   actionButton("showShitlist",
-                                "showShitlist"),
-                   actionButton("showTimeInput",
-                                "showTimeInput"),
-                   actionButton("showDateInput",
-                                "showDateInput"),
-                   actionButton("showTemplates",
-                                "showTemplates"),
-                   actionButton("exportXLS",
-                                "exportXLS"),
-                   actionButton("saveTest",
-                                "saveTest")),
+  dashboardSidebar(
+    collapsed = TRUE,
+    actionButton("showShitlist",
+                 "showShitlist"),
+    actionButton("showTimeInput",
+                 "showTimeInput"),
+    actionButton("showDateInput",
+                 "showDateInput"),
+    actionButton("showTemplates",
+                 "showTemplates"),
+    actionButton("exportXLS",
+                 "exportXLS"),
+    actionButton("saveTest",
+                 "saveTest")),
   
   # ############################################################################ dashboardBody ####
   dashboardBody(
@@ -32,7 +33,7 @@ ui <- dashboardPage(
             solidHeader = TRUE,
             status = "primary",
             collapsible = TRUE,
-            collapsed = TRUE,
+            # collapsed = TRUE,
             fluidRow(
               column(5,
                      dateInput("shit_date",
