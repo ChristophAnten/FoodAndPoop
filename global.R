@@ -20,6 +20,9 @@ library(dplyr)
 library(tidyverse)
 library(DT)
 
+show.observeEvents <- TRUE
+show.functionCall <- TRUE
+
 styles <- list(submit = "color: #fff; background-color: #337ab7; border-color: #2e6da4")
 
 thickness <- c("liquid",1:9,"brick")

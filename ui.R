@@ -2,7 +2,13 @@
 ui <- dashboardPage(
   
   # ########################################################################## dashboardHeader ####
-  dashboardHeader(title = "Poop"),
+  dashboardHeader(title = "Food & Poop",
+                  # dropdownMenu( type = "notifications", 
+                  #               icon = icon("question-circle"),
+                  #               badgeStatus = NULL),
+                  tags$li(class = "dropdown",
+                          
+                          tags$li(class = "dropdown", actionLink("quitApp", "Quit",icon=icon("circle-o-notch"))))),
   
   # ######################################################################### dashboardSidebar ####
   dashboardSidebar(
@@ -18,7 +24,10 @@ ui <- dashboardPage(
     actionButton("exportXLS",
                  "exportXLS"),
     actionButton("saveTest",
-                 "saveTest")),
+                 "saveTest"),
+    actionButton("showRow",
+                 "showRow")
+  ),
   
   # ############################################################################ dashboardBody ####
   dashboardBody(
